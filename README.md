@@ -13,13 +13,16 @@ https://etl.dewi.org
 If you're interested in using it, please contact @jamiedubs on Discord
 
 
-TODO get fancy and use [dbt](https://github.com/fishtown-analytics/dbt)
+TODO
+----
+* More views: `challenges`, `consensus_groups`, `payments`, split out reward-types, etc
+* Get fancy and use [dbt](https://github.com/fishtown-analytics/dbt)
+
 
 Contributing
 ------------
 
 * Pull requests welcome
-* Fork and send a pull request
 * Ask questions in #hips or #blockchain-dev on Discord
 
 Contributors
