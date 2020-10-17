@@ -1,0 +1,29 @@
+{
+  "challenger": "112XqVXNZN6XWHQKVrMkrr6TFQYkR8aHfWMwrTU1UvufsXJSp529",
+  "challenger_location": "8c2a1072d05d5ff",
+  "challenger_owner": "14UGKeuJCq6hnuoFxW8Q9548XtDC8r6rXvjtnjnEn2kgEpvhkyt",
+  "fee": 0,
+  "hash": "WaQFQTyzOdxTV__KLEC3PIDDLfKDq9epyObQaomcn7Q",
+  "onion_key_hash": "KDS3IIwn2y0Mz0bp8myc4yLxr0agL1lUcPvXC41fBKU",
+  "path": [
+    {
+      "challengee": "116GfBi3trAuVxkd3wJmR5Rn2GUnPysYU31v79HvoCwCYscp9x2",
+      "challengee_location": "8c268cd0b2621ff",
+      "challengee_owner": "13gJqE2X4mjA1VjJ3UvNgSoebMogCiQhBPyQWrGKSXm8ZH6Bnzp",
+      "receipt": {
+        "channel": 0,
+        "data": "op4",
+        "datarate": [],
+        "frequency": 0E-20,
+        "gateway": "116GfBi3trAuVxkd3wJmR5Rn2GUnPysYU31v79HvoCwCYscp9x2",
+        "origin": "p2p",
+        "signal": 0,
+        "snr": 0E-20,
+        "timestamp": 1600895134675657671
+      },
+      "witnesses": []
+    }
+  ],
+  "secret": "ALfIRcTENHnKnM3K-ZeN4YV9WDsEsB6oSNQETegVZIVwBMTB2RW6ONMbFeir2CqXsBzc3sVRpIi3bTRe-uUVoPM7YgSFIVgjQe8ih-yQFdwj3CmGsRdZA3czXDJW_WXjN9k",
+  "type": "poc_receipts_v1"
+}

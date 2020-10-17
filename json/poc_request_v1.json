@@ -1,0 +1,12 @@
+{
+  "block_hash": "Hgvsy8mUBONKP2oAsTAorrji1EzJOG4DfZq-WRP0BSQ",
+  "challenger": "112nvRUdwE79S5dE35LyALPBgfu1hDNbytLK42AuE6es2QdoD93B",
+  "challenger_location": "8c2a906403507ff",
+  "challenger_owner": "13NoYZt5KEj66mUFDrfGSgsNwtQN1B3P5z6k9YJhnLz5SjU2g1K",
+  "fee": 0,
+  "hash": "Le1RERw0ndQ0Sig2OblF9UItTTDiixd26fgjLISmfUI",
+  "onion_key_hash": "VnVqOLSczQx0ONkAd8Oryn9S2L1VBkvGhFSRzEViOCo",
+  "secret_hash": "rdDV2Lo_u4JV28AwrTdDFSeWifqQdAt3lxYq_gpz37s",
+  "type": "poc_request_v1",
+  "version": 2
+}
