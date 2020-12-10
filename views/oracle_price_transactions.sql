@@ -14,5 +14,5 @@ SELECT
 FROM
   public.transactions
 WHERE
-  public.transactions.type = CAST('poc_request_v1' AS transaction_type)
+  public.transactions.type = CAST('price_oracle_v1' AS transaction_type)
 ;
