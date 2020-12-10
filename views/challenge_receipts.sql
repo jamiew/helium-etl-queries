@@ -1,4 +1,4 @@
-CREATE VIEW challenges AS
+CREATE VIEW challenge_receipts AS
 SELECT
     public.transactions.block AS block,
     public.transactions.hash AS hash,
