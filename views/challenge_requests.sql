@@ -5,7 +5,6 @@ SELECT
     public.transactions.type AS type,
 
     -- fields specific to this txn
-    -- public.transactions.fields AS fields,
     public.transactions.fields->>'block_hash' as block_hash,
     public.transactions.fields->>'challenger' as challenger,
     public.transactions.fields->>'challenger_location' as challenger_location,

@@ -1,4 +1,3 @@
-
 CREATE VIEW data_credits AS
 WITH second AS (
     WITH first AS (
@@ -22,4 +21,3 @@ SELECT
 ((json_array_elements(to_json(second.summaries))->>'num_dcs')::int) as "dcs",
 ((json_array_elements(to_json(second.summaries))->>'num_packets')::int) as "packets"
 FROM second;
-
