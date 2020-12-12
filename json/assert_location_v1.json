@@ -1,0 +1,11 @@
+{
+  "fee": 70000,
+  "hash": "I09hpD26-0mnH3bM3V1UU-EU8j4nIzcQj9g067n5JUE",
+  "type": "assert_location_v1",
+  "nonce": 2,
+  "owner": "14me7Go2B2yZwXGjjoy2MhdgH1WdwPB3XBFZqcdzYSLMza36nS5",
+  "payer": "14fzfjFcHpDR1rTH8BNPvSi5dKBbgxaDnmsVPbCjuq9ENjpZbxh",
+  "gateway": "11iRJa2m65TFAVDMNBmtoJo7diZsdvqPfT3wSACunvYgHxxhJi5",
+  "location": "8c262cd04a6cbff",
+  "staking_fee": 1000000
+}
