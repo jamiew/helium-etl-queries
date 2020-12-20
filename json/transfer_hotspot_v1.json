@@ -1,1 +1,10 @@
-{"fee": 55000, "hash": "vb2lNhA4SLPBAiAZF2AExJZg1CCECR0BdblgVaTJFqU", "type": "transfer_hotspot_v1", "buyer": "13aswu4P8RtSnAULa2n2GQ9vPVt6szczfoKGmSPhmGLHADMKKy7", "seller": "13E4Z24HzqqvaXFhXgLsK3zPxyMF88C1M246TFNHnAJqg6KCtnT", "gateway": "112mmjBmpU4ZaWDwdjTB97Jk9enJTuqBZKtsEKE6rGrvDenGmeNd", "buyer_nonce": 4, "amount_to_seller": 0}
+{
+  "fee": 55000,
+  "hash": "vb2lNhA4SLPBAiAZF2AExJZg1CCECR0BdblgVaTJFqU",
+  "type": "transfer_hotspot_v1",
+  "buyer": "13aswu4P8RtSnAULa2n2GQ9vPVt6szczfoKGmSPhmGLHADMKKy7",
+  "seller": "13E4Z24HzqqvaXFhXgLsK3zPxyMF88C1M246TFNHnAJqg6KCtnT",
+  "gateway": "112mmjBmpU4ZaWDwdjTB97Jk9enJTuqBZKtsEKE6rGrvDenGmeNd",
+  "buyer_nonce": 4,
+  "amount_to_seller": 0
+}
