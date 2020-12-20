@@ -1,3 +1,4 @@
+-- TODO rename this to transactions_price_oracle
 CREATE VIEW oracle_price_transactions AS
 SELECT
     public.transactions.block AS block,
