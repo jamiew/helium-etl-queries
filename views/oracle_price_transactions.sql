@@ -6,10 +6,10 @@ SELECT
     public.transactions.type AS type,
 
     -- fields specific to this txn
-    public.transactions.fields->>'fee' as fee,
-    public.transactions.fields->>'price' as price, -- do we want to cast this?
+    CAST(public.transactions.fields->>'fee' AS BIGINT) as fee,
+    CAST(public.transactions.fields->>'price' AS BIGINT) as price,
     public.transactions.fields->>'public_key' as public_key,
-    public.transactions.fields->>'block_height' as block_height, -- is this
+    public.transactions.fields->>'block_height' as block_height, -- is this different from "block" above?
 
     to_timestamp(public.transactions.time) AS time
 FROM
