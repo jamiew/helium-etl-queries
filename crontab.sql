@@ -1,0 +1,1 @@
+REFRESH MATERIALIZED VIEW challenge_receipts_parsed;
