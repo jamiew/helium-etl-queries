@@ -1,6 +1,6 @@
 -- enriched version of challenge_receipts by @wishplorer
-drop view challenge_receipts_parsed;
-create view challenge_receipts_parsed as 
+drop materialized view challenge_receipts_parsed;
+create materialized view challenge_receipts_parsed as 
 with data1 as 
 (
 SELECT  a.block, a.hash, a.time, b.value as cpath
