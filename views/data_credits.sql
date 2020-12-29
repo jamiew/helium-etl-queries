@@ -1,4 +1,4 @@
-DROP MAATERIALIZED VIEWdata_credits;
+DROP MATERIALIZED VIEW data_credits;
 CREATE MATERIALIZED VIEW data_credits AS
 WITH second AS (
     WITH first AS (
