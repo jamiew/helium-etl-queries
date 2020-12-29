@@ -1,4 +1,5 @@
-CREATE VIEW data_credits AS
+DROP MAATERIALIZED VIEWdata_credits;
+CREATE MATERIALIZED VIEW data_credits AS
 WITH second AS (
     WITH first AS (
         SELECT
@@ -15,9 +16,9 @@ WITH second AS (
 )
 SELECT
 	second.time as "time",
-((json_array_elements(to_json(second.summaries))->>'owner')) as "owner",
-((json_array_elements(to_json(second.summaries))->>'client')) as "client",
-((json_array_elements(to_json(second.summaries))->>'location')) as "location",
-((json_array_elements(to_json(second.summaries))->>'num_dcs')::int) as "dcs",
-((json_array_elements(to_json(second.summaries))->>'num_packets')::int) as "packets"
+  ((json_array_elements(to_json(second.summaries))->>'owner')) as "owner",
+  ((json_array_elements(to_json(second.summaries))->>'client')) as "client",
+  ((json_array_elements(to_json(second.summaries))->>'location')) as "location",
+  ((json_array_elements(to_json(second.summaries))->>'num_dcs')::int) as "dcs",
+  ((json_array_elements(to_json(second.summaries))->>'num_packets')::int) as "packets"
 FROM second;
