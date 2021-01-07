@@ -47,3 +47,8 @@ left join    data_w1 b
     and a.challengee = b.challengee
 left join   gateway_inventory wt 
     on  b.witness_gateway = wt.address;
+
+-- FIXME should just be indexing on either name or address, not both
+create index challenge_receipts_parsed_transmitter_address_idx ON public.challenge_receipts_parsed USING btree (transmitter_address);
+create index challenge_receipts_parsed_transmitter_name_idx ON public.challenge_receipts_parsed USING btree (transmitter_name);
+create index challenge_receipts_parsed_witness_name_idx ON public.challenge_receipts_parsed USING btree (witness_name);

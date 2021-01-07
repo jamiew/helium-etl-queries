@@ -22,3 +22,5 @@ SELECT
   ((json_array_elements(to_json(second.summaries))->>'num_dcs')::int) as "dcs",
   ((json_array_elements(to_json(second.summaries))->>'num_packets')::int) as "packets"
 FROM second;
+
+create index data_credits_client_idx on public.data_credits using btree (client);
