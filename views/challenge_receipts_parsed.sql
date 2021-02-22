@@ -6,7 +6,7 @@ with data1 as
 SELECT  a.block, a.hash, a.time, b.value as cpath
 FROM
   public.challenge_receipts a, json_array_elements(a.path::json) b
-  where a.block > 635109
+  where a.block > 675109
 ),
 data2 as (
 select  a.block, a.hash, a.time,
