@@ -6,7 +6,7 @@ with data1 as
 (
 SELECT      a.block, a.hash, a.time, b.value as cpath
 FROM        public.challenge_receipts a, json_array_elements(a.path::json) b
-where     a.block > select max(block) from challenge_receipts_parsed
+WHERE     a.block > (select max(block) from challenge_receipts_parsed)
 ),
 data2 as (
 select  a.block, a.hash, a.time,
@@ -16,13 +16,13 @@ select  a.block, a.hash, a.time,
 FROM    data1 a
 ),
 data_r1 as (
-select  block, hash, time, challengee,
+SELECT  block, hash, time, challengee,
         receipt::json->>'gateway' as challengee_gateway,
         receipt::json->>'origin' as origin
 FROM    data2
 ),
 data_w1 as (
-select  a.block, a.hash, a.challengee,
+SELECT  a.block, a.hash, a.challengee,
         b.value::json->>'owner' as witness_owner,
         b.value::json->>'gateway' as witness_gateway,
         b.value::json->>'is_valid' as witness_is_valid,
