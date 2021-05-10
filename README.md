@@ -29,7 +29,9 @@ Contributors
 ------------
 
 * @\~zav\~
-* @jamiedubs
+* @jamiedubs ([@jamiew](https://github.com/jamiew/))
+* [@wishplorer](https://github.com/wishplorer)
+* [@GregKarabinos](GregKarabinos)
 
 License
 -------
