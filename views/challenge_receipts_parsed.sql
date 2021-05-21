@@ -31,8 +31,8 @@ SELECT  a.block, a.hash, a.challengee,
         b.value::json->>'snr' as witness_snr,
         b.value::json->>'channel' as witness_channel,
         b.value::json->>'datarate' as witness_sf,
-        b.value::json->>'frequency' as witness_frequency
-        b.value::json->>'location' as witness_location
+        b.value::json->>'frequency' as witness_frequency,
+        b.value::json->>'location' as witness_location,
         b.value::json->>'timestamp' as witness_timestamp
 from    data2 a, json_array_elements(a.witnesses::json) b
 ),
