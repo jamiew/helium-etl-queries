@@ -10,8 +10,9 @@ A live instance with these views is avaialble on the beta DeWi ETL instance, whi
 
 https://etl.dewi.org
 
-If you're interested in using it, please contact @jamiedubs on Discord
+If you're interested in using it, please contact @jamiedubs/@wishplorer on Discord. There is auto signup available if using gmail.com email address with google signin.
 
+Documentation available on: https://dbdocs.io/wishplorer/HeliumDewiETL
 
 TODO
 ----
