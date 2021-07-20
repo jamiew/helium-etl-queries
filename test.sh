@@ -1,7 +1,10 @@
 #!/bin/bash
 # 
-# assumes you have postgres credentials in the ENV already
-# PGUSER, PGPASSWORD et al
+# assumes you have postgres credentials in the ENV already, e.g. PGUSER, PGPASSWORD et al
+#
+# to update `etl-schema.sql`, run this on an up-to-date ETL instance:
+#
+#   pg_dump -s etl > etl-schema.sql
 # 
 
 database="etl_queries_test"
