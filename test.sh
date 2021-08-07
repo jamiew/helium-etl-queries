@@ -7,6 +7,8 @@
 #   pg_dump -s etl > etl-schema.sql
 # 
 
+set -e
+
 database="etl_queries_test"
 dropdb "$database"
 createdb "$database"
@@ -17,6 +19,7 @@ echo
 for file in views/*.sql; do 
   echo "----- $file -----"
   psql "$database" < "$file"
+  sleep 1
   echo
 done
 
