@@ -1,3 +1,4 @@
+drop view validator_penalty_parsed;
 create view validator_penalty_parsed as 
 	with data1 as (
 		select 	address, name, owner,
@@ -11,4 +12,4 @@ create view validator_penalty_parsed as
 		from	data1
 	)
 	select 	* 
-	from 	data2
+	from 	data2;
