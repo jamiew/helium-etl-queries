@@ -205,7 +205,9 @@ CREATE TYPE public.transaction_actor_role AS ENUM (
     'packet_receiver',
     'oracle',
     'router',
-    'validator'
+    'validator',
+    'consensus_failure_member',
+    'consensus_failure_failed_member'
 );
 
 
@@ -305,6 +307,17 @@ CREATE FUNCTION public.account_inventory_update() RETURNS trigger
 ALTER FUNCTION public.account_inventory_update() OWNER TO etl;
 
 --
+-- Name: gateway_inventory_on_insert(); Type: FUNCTION; Schema: public; Owner: etl
+--
+
+CREATE FUNCTION public.gateway_inventory_on_insert() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$ BEGIN     UPDATE gateway_inventory SET payer = (         select fields->>'payer'          from transaction_actors a inner join transactions t          on a.transaction_hash = t.hash             and a.actor = NEW.address             and a.actor_role = 'gateway'             and a.block = NEW.first_block         limit 1     )     where address = NEW.address;     RETURN NEW; END; $$;
+
+
+ALTER FUNCTION public.gateway_inventory_on_insert() OWNER TO etl;
+
+--
 -- Name: gateway_inventory_update(); Type: FUNCTION; Schema: public; Owner: etl
 --
 
@@ -314,6 +327,24 @@ CREATE FUNCTION public.gateway_inventory_update() RETURNS trigger
 
 
 ALTER FUNCTION public.gateway_inventory_update() OWNER TO etl;
+
+--
+-- Name: get_avg_version_penalties(integer, integer, text); Type: FUNCTION; Schema: public; Owner: etl
+--
+
+CREATE FUNCTION public.get_avg_version_penalties(integer, integer, text) RETURNS integer
+    LANGUAGE plpgsql
+    AS $$
+declare
+ total integer;
+begin
+    select 1 into total;
+    return total;
+end;
+$$;
+
+
+ALTER FUNCTION public.get_avg_version_penalties(integer, integer, text) OWNER TO etl;
 
 --
 -- Name: insert_packets(); Type: FUNCTION; Schema: public; Owner: etl
@@ -402,7 +433,7 @@ ALTER FUNCTION public.location_city_id_update() OWNER TO etl;
 
 CREATE FUNCTION public.location_city_words(l public.locations) RETURNS text
     LANGUAGE plpgsql
-    AS $$ begin     return (select string_agg(distinct word, ' ')             from regexp_split_to_table(                     lower(                         coalesce(l.long_city, '') || ' ' || coalesce(l.short_city, '') || ' ' ||                         coalesce(l.long_state, '') || ' ' || coalesce(l.short_state, '') || ' ' ||                         coalesce(l.long_country, '') || ' ' || coalesce(l.short_country, '') || ' '                     ) , '\s'                  ) as word where length(word) >= 3); end; $$;
+    AS $$ begin     return (select string_agg(word, ' ' order by rn)         from (select word, min(rn) as rn             from regexp_split_to_table(                         lower(                             coalesce(l.long_city, '') || ' ' || coalesce(l.short_city, '') || ' ' ||                              coalesce(l.long_state, '') || ' ' || coalesce(l.short_state, '') || ' ' ||                             coalesce(l.long_country, '') || ' ' || coalesce(l.short_country, '') || ' '                                                     ) , '\s'                      ) with ordinality x(word, rn) where length(word) >= 3             group by word) x); end; $$;
 
 
 ALTER FUNCTION public.location_city_words(l public.locations) OWNER TO etl;
@@ -468,7 +499,7 @@ ALTER FUNCTION public.txn_filter_account_activity(acc text, type public.transact
 
 CREATE FUNCTION public.txn_filter_actor_activity(actor text, type public.transaction_type, fields jsonb) RETURNS jsonb
     LANGUAGE plpgsql
-    AS $$ begin     case         when type = 'rewards_v1' then             return jsonb_set(fields, '{rewards}', (select jsonb_agg(x) from jsonb_to_recordset(fields#>'{rewards}') as x(account text, amount bigint, type text, gateway text) where account = actor or gateway = actor));         when type = 'rewards_v2' then             return jsonb_set(fields, '{rewards}', (select jsonb_agg(x) from jsonb_to_recordset(fields#>'{rewards}') as x(account text, amount bigint, type text, gateway text) where account = actor or gateway = actor));         when type = 'state_channel_close_v1' then             return jsonb_set(fields, '{state_channel,summaries}', (select jsonb_agg(x) from jsonb_to_recordset(fields#>'{state_channel,summaries}') as x(owner text, num_packets bigint, num_dcs bigint, location text, client text) where owner = actor or client = actor));         when type = 'payment_v2' then             if fields->>'payer' = actor then                 return fields;             else                 return jsonb_set(fields, '{payments}', (select jsonb_agg(x) from jsonb_to_recordset(fields#>'{payments}') as x(payee text, amount bigint) where payee = actor));             end if;         when type = 'consensus_group_v1' then            return fields - 'proof';         else             return fields;     end case; end; $$;
+    AS $$ begin     case         when type = 'rewards_v1' then             return jsonb_set(fields, '{rewards}', (select jsonb_agg(x) from jsonb_to_recordset(fields#>'{rewards}') as x(account text, amount bigint, type text, gateway text) where account = actor or gateway = actor));         when type = 'rewards_v2' then             return jsonb_set(fields, '{rewards}', (select jsonb_agg(x) from jsonb_to_recordset(fields#>'{rewards}') as x(account text, amount bigint, type text, gateway text) where account = actor or gateway = actor));         when type = 'state_channel_close_v1' then             return jsonb_set(fields, '{state_channel,summaries}', coalesce((select jsonb_agg(x) from jsonb_to_recordset(fields#>'{state_channel,summaries}') as x(owner text, num_packets bigint, num_dcs bigint, location text, client text) where owner = actor or client = actor), '[]'));         when type = 'payment_v2' then             if fields->>'payer' = actor then                 return fields;             else                 return jsonb_set(fields, '{payments}', (select jsonb_agg(x) from jsonb_to_recordset(fields#>'{payments}') as x(payee text, amount bigint) where payee = actor));             end if;         when type = 'consensus_group_v1' then            return fields - 'proof';         else             return fields;     end case; end; $$;
 
 
 ALTER FUNCTION public.txn_filter_actor_activity(actor text, type public.transaction_type, fields jsonb) OWNER TO etl;
@@ -866,7 +897,8 @@ CREATE TABLE public.gateway_inventory (
     elevation integer,
     gain integer,
     location_hex text,
-    mode public.gateway_mode
+    mode public.gateway_mode,
+    payer text
 );
 
 
@@ -1860,6 +1892,13 @@ CREATE TRIGGER account_insert AFTER INSERT ON public.accounts FOR EACH ROW EXECU
 --
 
 CREATE TRIGGER gateway_insert AFTER INSERT ON public.gateways FOR EACH ROW EXECUTE PROCEDURE public.gateway_inventory_update();
+
+
+--
+-- Name: gateway_inventory gateway_inventory_insert; Type: TRIGGER; Schema: public; Owner: etl
+--
+
+CREATE TRIGGER gateway_inventory_insert AFTER INSERT ON public.gateway_inventory FOR EACH ROW EXECUTE PROCEDURE public.gateway_inventory_on_insert();
 
 
 --
