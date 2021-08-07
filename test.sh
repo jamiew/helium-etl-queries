@@ -13,6 +13,7 @@ database="etl_queries_test"
 dropdb "$database"
 createdb "$database"
 
+[-f etl-roles.sql ] && psql "$database" < etl-roles.sql || echo "warning: roles are missing, there will be errors"
 psql "$database" < etl-schema.sql
 echo
 
