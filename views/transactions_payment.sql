@@ -1,5 +1,5 @@
-drop view if exists payment_transactions;
-create view payment_transactions as
+drop view if exists transactions_payment;
+create view transactions_payment as
 	select 
 			block
 			-- , hash
