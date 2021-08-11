@@ -10,7 +10,7 @@ create view transactions_payment as
 			, fields::json->>'nonce' as nonce
 			, fields::json->>'payee' as payee
 			, fields::json->>'payer' as payer
-			, fields::json->>'amount'::bigint as amount
+			, (fields::json->>'amount')::bigint as amount
 	from transactions 
 	where type IN ('payment_v1', 'payment_v2');
 
