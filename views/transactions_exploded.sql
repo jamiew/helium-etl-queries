@@ -1,0 +1,26 @@
+drop view if exists transactions_exploded;
+create view transactions_exploded as 
+(SELECT transactions.block,
+    transactions.hash,
+    transactions.type,
+    (transactions.fields ->> 'fee'::text)::bigint AS fee,
+    (transactions.fields ->> 'price'::text)::bigint AS price,
+    transactions.fields ->> 'public_key'::text AS public_key,
+    transactions.fields ->> 'block_height'::text AS block_height,
+    (transactions.fields ->> 'nonce'::text)::integer AS nonce,
+    transactions.fields ->> 'owner'::text AS owner,
+    transactions.fields ->> 'payer'::text AS payer,
+    transactions.fields ->> 'gateway'::text AS gateway,
+    transactions.fields ->> 'location'::text AS location,
+    transactions.fields ->> 'staking_fee'::text AS staking_fee,
+    transactions.fields ->> 'block_hash'::text AS block_hash,
+    transactions.fields ->> 'challenger'::text AS challenger,
+    transactions.fields ->> 'challenger_location'::text AS challenger_location,
+    transactions.fields ->> 'challenger_owner'::text AS challenger_owner,
+    transactions.fields ->> 'onion_key_hash'::text AS onion_key_hash,
+    transactions.fields ->> 'secret_hash'::text AS secret_hash,
+    (transactions.fields ->> 'version'::text)::integer AS version,
+    transactions.fields ->> 'path'::text AS path,
+    transactions.fields ->> 'secret'::text AS secret,
+    to_timestamp(transactions."time"::double precision) AS "time"
+   FROM transactions);
