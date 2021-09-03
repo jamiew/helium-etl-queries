@@ -1,8 +1,8 @@
 drop view if exists validator_cg_members;
 create view validator_cg_members as
-    select address as address,
-    count(penalty_type) as cg_count
-    from validator_penalty_parsed
-    where penalty_type = 'tenure'
-    group by address;
+    select actor as address,
+    count(actor_role) as cg_count
+    from transaction_actors
+    where actor_role = 'consensus_member'
+    group by actor;
 
