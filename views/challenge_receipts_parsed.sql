@@ -23,9 +23,12 @@ CREATE TABLE IF NOT EXISTS challenge_receipts_parsed (
     witness_location text,
     witness_timestamp text
 );
+
+CREATE INDEX IF NOT EXISTS challenge_receipts_parsed_block_idx ON public.challenge_receipts_parsed USING btree (block);
+CREATE INDEX IF NOT EXISTS challenge_receipts_parsed_hash_idx ON public.challenge_receipts_parsed USING btree (hash);
 CREATE INDEX IF NOT EXISTS challenge_receipts_parsed_transmitter_address_idx ON challenge_receipts_parsed USING btree (transmitter_address);
 CREATE INDEX IF NOT EXISTS challenge_receipts_parsed_transmitter_name_idx ON challenge_receipts_parsed USING btree (transmitter_name);
-CREATE INDEX IF NOT EXISTS challenge_receipts_parsed_witness_name_idx ON challenge_receipts_parsed USING btree (witness_address);
+CREATE INDEX IF NOT EXISTS challenge_receipts_parsed_witness_address_idx ON challenge_receipts_parsed USING btree (witness_address);
 CREATE INDEX IF NOT EXISTS challenge_receipts_parsed_witness_name_idx ON challenge_receipts_parsed USING btree (witness_name);
 
 -- then build our query and insert data into that table
