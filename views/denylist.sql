@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS denylist;
 CREATE TABLE denylist (
-  name VARCHAR(255),
+  name VARCHAR(255), -- duplicate of what's in gateway_inventory, but it's in the CSV
   address VARCHAR(53) PRIMARY KEY
 );
 
@@ -14,7 +14,7 @@ CREATE TABLE denylist (
 --
 -- lastly, remove the name column so folks don't get confused (right?)
 --
---    alter table denylist drop column name;
+--    echo "alter table denylist drop column name;" | psql etl2
 
 --
 
