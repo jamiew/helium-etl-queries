@@ -948,7 +948,7 @@ CREATE TABLE public.gateways (
 ALTER TABLE public.gateways OWNER TO etl;
 
 --
--- Name: maker_address; Type: VIEW; Schema: public; Owner: wishplorer
+-- Name: maker_address; Type: VIEW; Schema: public; Owner: etl
 --
 
 CREATE VIEW public.maker_address AS
@@ -992,7 +992,7 @@ UNION
     '14fzfjFcHpDR1rTH8BNPvSi5dKBbgxaDnmsVPbCjuq9ENjpZbxh'::text AS address;
 
 
-ALTER TABLE public.maker_address OWNER TO wishplorer;
+ALTER TABLE public.maker_address OWNER TO etl;
 
 --
 -- Name: oracle_inventory; Type: TABLE; Schema: public; Owner: etl
@@ -1256,7 +1256,7 @@ CREATE TABLE public.validator_inventory (
 ALTER TABLE public.validator_inventory OWNER TO etl;
 
 --
--- Name: validator_penalty_parsed; Type: VIEW; Schema: public; Owner: wishplorer
+-- Name: validator_penalty_parsed; Type: VIEW; Schema: public; Owner: etl
 --
 
 CREATE VIEW public.validator_penalty_parsed AS
@@ -1285,7 +1285,7 @@ CREATE VIEW public.validator_penalty_parsed AS
    FROM data2;
 
 
-ALTER TABLE public.validator_penalty_parsed OWNER TO wishplorer;
+ALTER TABLE public.validator_penalty_parsed OWNER TO etl;
 
 --
 -- Name: validator_status; Type: TABLE; Schema: public; Owner: etl
