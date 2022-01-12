@@ -1,2 +1,3 @@
 .DS_Store
+helium-denylist*.csv
 etl-roles.sql
