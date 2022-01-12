@@ -10,7 +10,7 @@ CREATE TABLE denylist (
 -- 
 -- then load into our new table:
 --
---    echo "copy denylist(address) from '$(pwd -P)/helium-denylist.csv' delimiter ',' csv header;" | psql etl2
+--    echo "copy denylist(name,address) from '$(pwd -P)/helium-denylist.csv' delimiter ',' csv header;" | psql etl2
 --
 -- lastly, remove the name column so folks don't get confused (right?)
 --
