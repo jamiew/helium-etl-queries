@@ -754,19 +754,6 @@ CREATE VIEW public.challenge_requests AS
 ALTER TABLE public.challenge_requests OWNER TO etl;
 
 --
--- Name: cheatnets; Type: TABLE; Schema: public; Owner: etl
---
-
-CREATE TABLE public.cheatnets (
-    address character varying NOT NULL,
-    rating integer DEFAULT 0,
-    created_at timestamp(6) without time zone NOT NULL
-);
-
-
-ALTER TABLE public.cheatnets OWNER TO etl;
-
---
 -- Name: rewards; Type: TABLE; Schema: public; Owner: etl
 --
 
@@ -782,22 +769,6 @@ WITH (autovacuum_enabled='true');
 
 
 ALTER TABLE public.rewards OWNER TO etl;
-
---
--- Name: cheatnet_rewards; Type: MATERIALIZED VIEW; Schema: public; Owner: etl
---
-
-CREATE MATERIALIZED VIEW public.cheatnet_rewards AS
- SELECT rewards.account,
-    rewards.gateway,
-    rewards.amount,
-    (to_timestamp((rewards."time")::double precision))::timestamp without time zone AS "timestamp"
-   FROM (public.cheatnets
-     LEFT JOIN public.rewards ON ((rewards.account = (cheatnets.address)::text)))
-  WITH NO DATA;
-
-
-ALTER TABLE public.cheatnet_rewards OWNER TO etl;
 
 --
 -- Name: data_credits; Type: MATERIALIZED VIEW; Schema: public; Owner: etl
@@ -1608,20 +1579,6 @@ CREATE INDEX challenge_receipts_parsed_witness_name_idx ON public.challenge_rece
 
 
 --
--- Name: cheatnet_rewards_account_idx; Type: INDEX; Schema: public; Owner: etl
---
-
-CREATE INDEX cheatnet_rewards_account_idx ON public.cheatnet_rewards USING btree (account);
-
-
---
--- Name: cheatnet_rewards_gateway_idx; Type: INDEX; Schema: public; Owner: etl
---
-
-CREATE INDEX cheatnet_rewards_gateway_idx ON public.cheatnet_rewards USING btree (gateway);
-
-
---
 -- Name: data_credits_client_idx; Type: INDEX; Schema: public; Owner: etl
 --
 
@@ -1703,13 +1660,6 @@ CREATE INDEX gateway_search_name_idx ON public.gateway_inventory USING gin (name
 --
 
 CREATE INDEX gateway_status_updated_at_idx ON public.gateway_status USING btree (updated_at);
-
-
---
--- Name: index_cheatnets_on_address; Type: INDEX; Schema: public; Owner: etl
---
-
-CREATE UNIQUE INDEX index_cheatnets_on_address ON public.cheatnets USING btree (address);
 
 
 --
@@ -2275,24 +2225,10 @@ GRANT SELECT ON TABLE public.challenge_requests TO readaccess;
 
 
 --
--- Name: TABLE cheatnets; Type: ACL; Schema: public; Owner: etl
---
-
-GRANT SELECT ON TABLE public.cheatnets TO readaccess;
-
-
---
 -- Name: TABLE rewards; Type: ACL; Schema: public; Owner: etl
 --
 
 GRANT SELECT ON TABLE public.rewards TO readaccess;
-
-
---
--- Name: TABLE cheatnet_rewards; Type: ACL; Schema: public; Owner: etl
---
-
-GRANT SELECT ON TABLE public.cheatnet_rewards TO readaccess;
 
 
 --
