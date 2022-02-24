@@ -14,6 +14,19 @@ If you're interested in using it, please contact @jamiedubs/@wishplorer on Disco
 
 Documentation available on: https://dbdocs.io/wishplorer/HeliumDewiETL
 
+Setup
+----
+
+- setup a blockchain-etl instance – this might take a while
+- load all the views from this repository:
+
+```
+dbname="etl"
+for i in views/*; do psql $dbname < $i; done
+```
+
+Or load them one at a time etc.
+
 TODO
 ----
 * More views: `challenges`, `consensus_groups`, `payments`, split out reward-types, etc
