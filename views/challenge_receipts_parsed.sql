@@ -2,6 +2,9 @@
 -- this is a full table now, and this query is meant to be run hourly-ish to insert new rows
 -- view was too slow, materialized view was too slow
 
+-- disable any query timeouts
+SET statement_timeout TO 0;
+
 -- first, create table + indexes if they don't exist yet
 CREATE TABLE IF NOT EXISTS challenge_receipts_parsed (
     block bigint,
