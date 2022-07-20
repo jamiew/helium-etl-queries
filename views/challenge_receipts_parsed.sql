@@ -1,4 +1,4 @@
--- v4 of challenge_receipts by @wishplorer & @jamiedubs
+-- v5 of challenge_receipts by @wishplorer & @jamiedubs
 -- this is a full table now, and this query is meant to be run hourly-ish to insert new rows
 -- view was too slow, materialized view was too slow
 
@@ -36,12 +36,12 @@ CREATE INDEX IF NOT EXISTS challenge_receipts_parsed_witness_address_idx ON chal
 CREATE INDEX IF NOT EXISTS challenge_receipts_parsed_witness_name_idx ON challenge_receipts_parsed USING btree (witness_name);
 
 -- then build our query and insert data into that table
--- note the hard-coded "first block value" here -- approx beginning of March 2022 as of writing
+-- note the hard-coded "first block value" here -- approx April 20, 2022 as of writing
 with data1 as
 (
     SELECT      a.block, a.hash, a.time, b.value as cpath
     FROM        public.challenge_receipts a, json_array_elements(a.path::json) b
-    WHERE       a.block > COALESCE(select max(block) from challenge_receipts_parsed, 127000000)
+    WHERE       a.block > COALESCE((select max(block) from challenge_receipts_parsed), 1320000)
 ),
 data2 as (
     select  a.block, a.hash, a.time,
